@@ -7,6 +7,6 @@ class UserManager extends ChangeNotifier{
   User? get getUser => _user;
   void setUser(User user) {
     this._user = user;
-    notifyListeners();
+    // notifyListeners();
   }
 }

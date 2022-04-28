@@ -32,5 +32,7 @@
   "enter-new-password": "Enter new password",
   "validate-value": "Please enter a valid value",
   "weak-password": "Weak password",
-  "exist-user": "an exist user account"
+  "exist-user": "An exist user account",
+  "incorrect-data": "The email or password is incorrect",
+  "please-wait": "Please wait"
 }

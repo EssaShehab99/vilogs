@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vilogs/styles/colors_app.dart';
 import '/data/models/user.dart' as UserModel;
@@ -33,7 +32,7 @@ class SignUpDAO extends ChangeNotifier {
       if (user != null) {
         UserCredential userCredential =
             await auth.createUserWithEmailAndPassword(
-                email: user!.email, password: user!.password!);
+                email: user!.email!, password: user!.password!);
         if (userCredential.user != null) await signUp(userCredential.user!.uid);
       }
     } catch (e) {
@@ -45,9 +44,9 @@ class SignUpDAO extends ChangeNotifier {
   Future<bool> sendOtp(BuildContext context) async {
     try {
       // return true;
-      if (user != null && !(await checkIfExistEmail(user!.email)))
+      if (user != null && !(await checkIfExistEmail(user!.email!)))
         return await emailAuth.sendOtp(
-            recipientMail: user!.email, otpLength: 4);
+            recipientMail: user!.email!, otpLength: 4);
       else {
         final snackBar = SnackBar(
           content: Text('exist-user'.tr(),
@@ -65,7 +64,7 @@ class SignUpDAO extends ChangeNotifier {
   Future<bool> verifyEmail(String code) async {
     try {
       bool status = await emailAuth.validateOtp(
-          recipientMail: user!.email, userOtp: code);
+          recipientMail: user!.email!, userOtp: code);
       if (status) await createUser();
       return status;
     } catch (_) {
