@@ -8,6 +8,7 @@ import 'package:vilogs/styles/theme_app.dart';
 import 'data/network/sign_up_dao.dart';
 import 'data/providers/app_state_manager.dart';
 import 'data/providers/user_manager.dart';
+import 'data/setting/config.dart';
 import 'modules/new_password.dart';
 import 'modules/reset_password.dart';
 import 'modules/sign_in.dart';
@@ -25,11 +26,11 @@ Future<void> main() async {
       fallbackLocale: const Locale('en', 'US'),
       startLocale: const Locale('en', 'US'),
       saveLocale: true,
-      child: MyApp()));
+      child: MyApp(isInVerification: await Config.getVerification())));
 }
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  const MyApp({Key? key,required this.isInVerification}) : super(key: key);
+  final bool isInVerification;
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -47,7 +48,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<AppStateManager>(
         builder: (context, value, child) {
           return MaterialApp(
-            home: SafeArea(child: Auth()),
+            home: SafeArea(child:isInVerification?Verification(): Auth()),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,

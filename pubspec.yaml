@@ -37,6 +37,11 @@ dependencies:
   cloud_firestore: ^3.1.13
   email_validator: ^2.0.1
   email_auth: ^1.0.0
+  flutter_otp_text_field: ^1.0.1
+  shared_preferences: ^2.0.13
+
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

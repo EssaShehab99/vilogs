@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:vilogs/data/models/user.dart';
 import 'package:vilogs/data/network/sign_up_dao.dart';
 import 'package:vilogs/data/providers/user_manager.dart';
+import 'package:vilogs/modules/verification.dart';
 import 'package:vilogs/shared/components.dart';
 import 'package:vilogs/shared/custom_input_border.dart';
 import 'package:vilogs/shared/date_input.dart';
@@ -32,7 +33,7 @@ class _SignUpState extends State<SignUp> {
   late DateTime manufactureYear;
   bool accept = false;
   bool obscureText = true;
-  bool isLoading= false;
+  bool isLoading = false;
 
   TypeCharacter typeCharacter = TypeCharacter.individual;
   final _formKey = GlobalKey<FormState>();
@@ -285,6 +286,9 @@ class _SignUpState extends State<SignUp> {
                   text: "sign-up".tr(),
                   onTap: () {
                     if (_formKey.currentState!.validate()) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       Provider.of<UserManager>(context, listen: false).setUser(
                           User(
                               name: fullNameController.text,
@@ -294,7 +298,22 @@ class _SignUpState extends State<SignUp> {
                               vehicleModel: vehicleModel,
                               password: passwordController.text,
                               typeCharacter: typeCharacter));
-                      Provider.of<SignUpDAO>(context, listen: false).createUser();
+                      Provider.of<SignUpDAO>(context, listen: false)
+                          .sendOtp(context)
+                          .then((value) {
+                        if (value) {
+                          isLoading = false;
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Verification(),
+                              ));
+                        } else {
+                          setState(() {
+                            isLoading = false;
+                          });
+                        }
+                      });
                     }
                   },
                 ),

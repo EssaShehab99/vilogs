@@ -31,5 +31,6 @@
   "go-sign": "Go to sign in page",
   "enter-new-password": "Enter new password",
   "validate-value": "Please enter a valid value",
-  "weak-password": "Weak password"
+  "weak-password": "Weak password",
+  "exist-user": "an exist user account"
 }
