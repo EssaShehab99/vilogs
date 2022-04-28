@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "839006068201",
+    "project_id": "vilogs-d4bd0",
+    "storage_bucket": "vilogs-d4bd0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839006068201:android:7eb1292442d589efaaff78",
+        "android_client_info": {
+          "package_name": "com.example.vilogs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "839006068201-0sob388ocek2r8l52md80f0gv4ebqegk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vilogs",
+            "certificate_hash": "e8c260892c3000144e80fe9e58508a2455f2c528"
+          }
+        },
+        {
+          "client_id": "839006068201-ijdbjcjlsl9el24r8oed6d0r05r05lee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-GFI8zDH_I0BwkIVV7Oaein77xRWobM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "839006068201-ijdbjcjlsl9el24r8oed6d0r05r05lee.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
