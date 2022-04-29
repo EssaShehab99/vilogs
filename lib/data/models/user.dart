@@ -41,6 +41,7 @@ class User {
       "manufactureYear": manufactureYear,
       "vehicleModel": vehicleModel,
       "vehicleBrand": vehicleBrand,
+      "password": password,
       "typeCharacter": typeCharacter?.name
     };
   }

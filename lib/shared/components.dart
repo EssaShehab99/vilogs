@@ -5,3 +5,10 @@ static  bool validateStructure(String value){
   return regExp.hasMatch(value);
 }
 }
+
+enum TypeOperation{
+  ADD,
+  EDIT,
+  RESET_PASSWORD,
+  CREATE_ACCOUNT
+}

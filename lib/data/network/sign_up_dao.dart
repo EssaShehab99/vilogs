@@ -22,7 +22,7 @@ class SignUpDAO extends ChangeNotifier {
 
   Future<void> signUp(String? UserID) async {
     if (user != null && UserID != null)
-      await collection.doc(UserID).set(user!.toJson());
+      await collection.doc(user?.email).set(user!.toJson());
 
     return Future.value();
   }
@@ -41,12 +41,11 @@ class SignUpDAO extends ChangeNotifier {
     return Future.value();
   }
 
-  Future<bool> sendOtp(BuildContext context) async {
+  Future<bool> verifyEmail(BuildContext context) async {
     try {
       // return true;
-      if (user != null && !(await checkIfExistEmail(user!.email!)))
-        return await emailAuth.sendOtp(
-            recipientMail: user!.email!, otpLength: 4);
+      if (user != null && !(await checkIfExistEmail()))
+        return await sendOtp();
       else {
         final snackBar = SnackBar(
           content: Text('exist-user'.tr(),
@@ -61,21 +60,33 @@ class SignUpDAO extends ChangeNotifier {
     }
   }
 
-  Future<bool> verifyEmail(String code) async {
+  Future<bool> sendOtp() async {
+    try {
+      // return true;
+      if (user != null && user!.email != null)
+        return await emailAuth.sendOtp(
+            recipientMail: user!.email!, otpLength: 4);
+      else
+        return false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  Future<bool> verifyCode(String code) async {
     try {
       bool status = await emailAuth.validateOtp(
           recipientMail: user!.email!, userOtp: code);
-      if (status) await createUser();
       return status;
     } catch (_) {
       return false;
     }
   }
 
-  Future<bool> checkIfExistEmail(String email) async {
+  Future<bool> checkIfExistEmail() async {
     try {
       final list =
-          await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+          await FirebaseAuth.instance.fetchSignInMethodsForEmail(user!.email!);
       if (list.isNotEmpty) {
         return true;
       } else {
@@ -86,8 +97,16 @@ class SignUpDAO extends ChangeNotifier {
     }
   }
 
-  Future<void> updateUser(UserModel.User user) async {
-    // await collection.doc(user.phone).update(user.toJson());
-    return Future.value();
+  Future<bool> resetPassword() async {
+    if (user != null && user!.email != null && (await checkIfExistEmail()))
+      return await sendOtp();
+    else
+      return false;
+  }
+
+  Future<void> changePassword() async {
+    await collection.doc(user?.email).update({"password": user?.password});
+
+    Future.value();
   }
 }

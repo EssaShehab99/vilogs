@@ -34,5 +34,6 @@
   "weak-password": "Weak password",
   "exist-user": "An exist user account",
   "incorrect-data": "The email or password is incorrect",
+  "incorrect-email": "This email not exist",
   "please-wait": "Please wait"
 }

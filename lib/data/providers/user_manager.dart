@@ -9,4 +9,7 @@ class UserManager extends ChangeNotifier{
     this._user = user;
     // notifyListeners();
   }
+  void setPassword(String password){
+    this._user?.password=password;
+  }
 }

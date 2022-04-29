@@ -12,12 +12,12 @@ class SignInDAO extends ChangeNotifier {
     UserModel.User? user;
     if (email != null && password != null)
      try{
-       await _firebaseInstance
-           .signInWithEmailAndPassword(email: email, password: password)
-           .then((value) async {
-         await collection.doc(value.user?.uid).get().then((value) {
-           user = UserModel.User.fromJson(value.data() as Map<String, dynamic>);
-         });
+       // await _firebaseInstance
+       //     .signInWithEmailAndPassword(email: email, password: password);
+         await collection.doc(email).get().then((value) {
+           if ((value.data() as Map<String, dynamic>)["password"] == password) {
+             user = UserModel.User.fromJson(value.data() as Map<String, dynamic>);
+           }
        });
      }catch(e){
        return user;

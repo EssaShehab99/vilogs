@@ -107,12 +107,11 @@ class _SignInState extends State<SignIn> {
                         },
                         title: Text(
                           "remember_me".tr(),
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .headline1
                               ?.copyWith(
-                              fontSize: 15, fontWeight: FontWeight.w700),
+                                  fontSize: 15, fontWeight: FontWeight.w700),
                         ),
                       ),
                     ),
@@ -131,14 +130,13 @@ class _SignInState extends State<SignIn> {
                               child: FittedBox(
                                 child: Text(
                                   "forgot_password".tr(),
-                                  style: Theme
-                                      .of(context)
+                                  style: Theme.of(context)
                                       .textTheme
                                       .headline1
                                       ?.copyWith(
-                                      fontSize: 15,
-                                      decoration: TextDecoration.underline,
-                                      fontWeight: FontWeight.w600),
+                                          fontSize: 15,
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.w600),
                                 ),
                               )),
                         )
@@ -148,61 +146,58 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               StatefulBuilder(
-                builder: (context, setState) =>
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if(isLoading==null)
-                        Flexible(
-                          child: Padding(
-                            padding:  EdgeInsets.symmetric(horizontal: ConstantValues.padding),
-                            child: Text(
-                              "incorrect-data".tr(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline1
-                                  ?.copyWith(color: Colors.red, fontSize: 15),
-                            ),
+                builder: (context, setState) => Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (isLoading == null)
+                      Flexible(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ConstantValues.padding),
+                          child: Text(
+                            "incorrect-data".tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                ?.copyWith(color: Colors.red, fontSize: 15),
                           ),
                         ),
-                        CustomButton(
-                          isLoading: isLoading??false,
-                          text: "sign-in".tr(),
-                          onTap: () {
-                            if (_formKey.currentState!.validate()) {
-                              setState(() {
-                                isLoading = true;
-                                Provider.of<SignInDAO>(context, listen: false)
-                                    .signIn(
-                                    emailController.text, passwordController.text)
-                                    .then((value) {
-                                  if (value != null) {
-                                    Provider.of<UserManager>(context,
-                                        listen: false)
-                                        .setUser(value);
-                                    if(isRemember)
-                                    Config.setUser(
-                                        emailController.text,
-                                        passwordController.text);
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Home(),
-                                        ));
-                                  }
-                                  else{
-    setState(() {
-      isLoading = null;
-    });
-                                  }
+                      ),
+                    CustomButton(
+                      isLoading: isLoading ?? false,
+                      text: "sign-in".tr(),
+                      onTap: () {
+                        if (_formKey.currentState!.validate()) {
+                          setState(() {
+                            isLoading = true;
+                            Provider.of<SignInDAO>(context, listen: false)
+                                .signIn(emailController.text,
+                                    passwordController.text)
+                                .then((value) {
+                              if (value != null) {
+                                Provider.of<UserManager>(context, listen: false)
+                                    .setUser(value);
+                                if (isRemember)
+                                  Config.setUser(emailController.text,
+                                      passwordController.text);
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Home(),
+                                    ));
+                              } else {
+                                setState(() {
+                                  isLoading = null;
                                 });
-                              });
-                            }
-                          },
-                        ),
-                      ],
+                              }
+                            });
+                          });
+                        }
+                      },
                     ),
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: ConstantValues.padding),
@@ -210,25 +205,20 @@ class _SignInState extends State<SignIn> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text("not-account".tr() + " ",
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .headline1
-                            ?.copyWith(
+                        style: Theme.of(context).textTheme.headline1?.copyWith(
                             fontSize: 18, fontWeight: FontWeight.w600)),
                     TextButton(
                       onPressed: () {
                         widget.tabController.animateTo(1);
                       },
                       child: Text("sign-up".tr(),
-                          style: Theme
-                              .of(context)
+                          style: Theme.of(context)
                               .textTheme
                               .headline1
                               ?.copyWith(
-                              fontSize: 15,
-                              decoration: TextDecoration.underline,
-                              fontWeight: FontWeight.w600)),
+                                  fontSize: 15,
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.w600)),
                     ),
                   ],
                 ),

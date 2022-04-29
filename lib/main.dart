@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:vilogs/data/network/sign_in_dao.dart';
 import 'package:vilogs/modules/auth.dart';
 import 'package:vilogs/modules/wait_screen.dart';
+import 'package:vilogs/shared/components.dart';
 import 'package:vilogs/styles/colors_app.dart';
 import 'package:vilogs/styles/theme_app.dart';
 
@@ -27,16 +28,13 @@ Future<void> main() async {
       fallbackLocale: const Locale('en', 'US'),
       startLocale: const Locale('en', 'US'),
       saveLocale: true,
-      child: MyApp(
-        isInVerification: await Config.getVerification(),
-        user: await Config.getUser(),
+      child: MyApp(user: await Config.getUser(),
       )));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key, required this.isInVerification, required this.user})
+  const MyApp({Key? key, required this.user})
       : super(key: key);
-  final bool isInVerification;
   final Model.User? user;
 
   @override
@@ -60,9 +58,7 @@ class MyApp extends StatelessWidget {
           if (user != null) userManager.setUser(user!);
           return MaterialApp(
             home: SafeArea(
-                child: isInVerification
-                    ? Verification()
-                    : FutureBuilder<Model.User?>(
+                child:  FutureBuilder<Model.User?>(
                         future: Provider.of<SignInDAO>(context, listen: false)
                             .signIn(userManager.getUser?.email,
                                 userManager.getUser?.password),

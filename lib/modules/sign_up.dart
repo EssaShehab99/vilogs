@@ -10,6 +10,7 @@ import 'package:vilogs/shared/custom_input_border.dart';
 import 'package:vilogs/shared/date_input.dart';
 
 import '../constants/constant_values.dart';
+import '../data/setting/config.dart';
 import '../shared/custom_button.dart';
 import '../shared/dropdown_input.dart';
 import '../shared/text_input.dart';
@@ -299,14 +300,15 @@ class _SignUpState extends State<SignUp> {
                               password: passwordController.text,
                               typeCharacter: typeCharacter));
                       Provider.of<SignUpDAO>(context, listen: false)
-                          .sendOtp(context)
+                          .verifyEmail(context)
                           .then((value) {
                         if (value) {
                           isLoading = false;
+                          Config.setVerification(true);
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Verification(),
+                                builder: (context) => Verification(typeOperation: TypeOperation.CREATE_ACCOUNT),
                               ));
                         } else {
                           setState(() {
