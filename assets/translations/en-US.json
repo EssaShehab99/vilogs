@@ -35,5 +35,19 @@
   "exist-user": "An exist user account",
   "incorrect-data": "The email or password is incorrect",
   "incorrect-email": "This email not exist",
-  "please-wait": "Please wait"
+  "please-wait": "Please wait",
+  "menu": "Menu",
+  "home": "Home",
+  "history": "History",
+  "realtime-data": "Realtime data",
+  "recent-date": "Recent date",
+  "chart-data": "Chart data",
+  "fuel": "Fuel",
+  "vehicle-temp": "Vehicle average Temperature",
+  "temp-very-high": "Your Car Temperature is very high",
+  "issues": "Issues",
+  "past": "Past",
+  "in-progress": "In progress",
+  "assign-engineer": "Assign engineer",
+  "edit-profile": "Edit profile"
 }

@@ -45,7 +45,7 @@ class CustomTabs extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .headline1
-                                  ?.copyWith(fontSize: 40),
+                                  ?.copyWith(fontSize: 30),
                             ),
                             TabBar(
                               controller: tabController,
@@ -71,7 +71,6 @@ class CustomTabs extends StatelessWidget {
                         firstTabChild ?? SizedBox.shrink(),
                         secondTabChild ?? SizedBox.shrink(),
                       ],
-                      physics: NeverScrollableScrollPhysics(),
                     ),
                   )
                 ],

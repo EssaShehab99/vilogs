@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vilogs/modules/Home.dart';
+import 'package:vilogs/modules/menu_page.dart';
 import 'package:vilogs/modules/sign_in.dart';
 import 'package:vilogs/modules/sign_up.dart';
 import '../data/network/sign_in_dao.dart';

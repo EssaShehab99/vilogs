@@ -11,7 +11,8 @@ import 'package:vilogs/shared/text_input.dart';
 import 'package:vilogs/styles/colors_app.dart';
 
 import '../data/setting/config.dart';
-import 'Home.dart';
+import 'menu_page.dart';
+import 'main_page.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key, required this.tabController}) : super(key: key);
@@ -184,7 +185,7 @@ class _SignInState extends State<SignIn> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => Home(),
+                                      builder: (context) => MainPage(),
                                     ));
                               } else {
                                 setState(() {

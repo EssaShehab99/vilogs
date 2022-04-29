@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:vilogs/data/network/sign_in_dao.dart';
+import 'package:vilogs/data/providers/history_manager.dart';
 import 'package:vilogs/modules/auth.dart';
 import 'package:vilogs/modules/wait_screen.dart';
 import 'package:vilogs/shared/components.dart';
@@ -10,11 +11,12 @@ import 'package:vilogs/styles/colors_app.dart';
 import 'package:vilogs/styles/theme_app.dart';
 
 import 'data/network/sign_up_dao.dart';
-import 'data/providers/app_state_manager.dart';
+import 'data/providers/navigation_bar_manager.dart';
+import 'data/providers/issues_manager.dart';
 import 'data/providers/user_manager.dart';
 import 'data/setting/config.dart';
 import '/data/models/user.dart' as Model;
-import 'modules/Home.dart';
+import 'modules/main_page.dart';
 import 'modules/verification.dart';
 
 Future<void> main() async {
@@ -41,7 +43,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => AppStateManager()),
+        ChangeNotifierProvider(create: (context) => NavigationBarManager()),
         ChangeNotifierProvider(create: (context) => UserManager()),
         ChangeNotifierProxyProvider<UserManager, SignUpDAO>(
           create: (context) => SignUpDAO(
@@ -50,9 +52,11 @@ class MyApp extends StatelessWidget {
               SignUpDAO(user: userManager.getUser),
         ),
         ChangeNotifierProvider(create: (context) => SignInDAO()),
+        ChangeNotifierProvider(create: (context) => HistoryManager()),
+        ChangeNotifierProvider(create: (context) => IssuesManager()),
       ],
-      child: Consumer<AppStateManager>(
-        builder: (context, value, child) {
+      child: Builder(
+        builder: (context) {
           UserManager userManager =
               Provider.of<UserManager>(context, listen: false);
           if (user != null) userManager.setUser(user!);
@@ -71,9 +75,9 @@ class MyApp extends StatelessWidget {
                             default:
                               if (snapshot.hasData && snapshot.data!=null) {
                                 userManager.setUser(snapshot.data!);
-                                return Home();
+                                return MainPage();
                               } else {
-                                return Auth();
+                                return MainPage();
                               }
                           }
 

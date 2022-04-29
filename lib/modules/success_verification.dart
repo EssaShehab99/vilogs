@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vilogs/constants/constant_values.dart';
-import 'package:vilogs/modules/Home.dart';
+import 'package:vilogs/modules/menu_page.dart';
 import 'package:vilogs/modules/sign_in.dart';
 import 'package:vilogs/modules/sign_up.dart';
 import 'package:vilogs/shared/components.dart';
@@ -9,6 +9,7 @@ import 'package:vilogs/shared/custom_button.dart';
 import 'package:vilogs/shared/text_input.dart';
 
 import '../styles/colors_app.dart';
+import 'main_page.dart';
 
 class SuccessVerification extends StatelessWidget {
   const SuccessVerification({Key? key}) : super(key: key);
@@ -91,7 +92,7 @@ class SuccessVerification extends StatelessWidget {
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Home(),
+                                  builder: (context) => MainPage(),
                                 ));
                           },
                           text: "go-sign".tr(),
