@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
           if (user != null) userManager.setUser(user!);
           return MaterialApp(
             home: SafeArea(
-                child:  Auth()/*FutureBuilder<Model.User?>(
+                child:  /*Auth()*/FutureBuilder<Model.User?>(
                         future: Provider.of<SignInDAO>(context, listen: false)
                             .signIn(userManager.getUser?.email,
                                 userManager.getUser?.password),
@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
                           }
 
                         },
-                      )*/),
+                      )),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,

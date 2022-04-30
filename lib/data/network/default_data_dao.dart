@@ -4,6 +4,7 @@ import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vilogs/data/models/default_data.dart';
+import 'package:vilogs/data/models/history.dart';
 import 'package:vilogs/data/providers/default_data_manager.dart';
 import 'package:vilogs/styles/colors_app.dart';
 import '/data/models/user.dart' as UserModel;
@@ -15,6 +16,9 @@ class DefaultDataDAO extends ChangeNotifier {
 
   final CollectionReference collectionVehicleBrand =
       FirebaseFirestore.instance.collection('vehicleBrand');
+
+  final CollectionReference collectionHome =
+      FirebaseFirestore.instance.collection('home');
 
   Future<QuerySnapshot<Object?>> getVehicleBrand() async {
     return await collectionVehicleBrand.get();
@@ -41,6 +45,19 @@ class DefaultDataDAO extends ChangeNotifier {
     }
     _defaultDataManager?.setVehicleBrand(vehicleBrand);
     // return vehicleBrand;
+  }
 
+  Future<List<History>> getHomeData() async {
+    List<History> historyList = [];
+    QuerySnapshot<Object?> snapshot=await collectionHome.get();
+    for(var item in snapshot.docs){
+      // var x=(item.data() as Map<String, dynamic>);
+      (item.data() as Map<String, dynamic>).keys.forEach((element) {
+        historyList.add(History.setData(key: element,value:(item.data() as Map<String, dynamic>)[element] ));
+      });
+      // print((item.data() as Map<String, dynamic>).keys.first.toString()+" ggggggggggggggggggggggggggggggggggggg");
+      // historyList.add(History.fromJson(item.data() as Map<String, dynamic>));
+    }
+    return historyList;
   }
 }

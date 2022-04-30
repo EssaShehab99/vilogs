@@ -4,15 +4,9 @@ class History {
 
   History({required this.key, required this.value});
 
-  factory History.fromJson(Map<String, dynamic> json) => History(
-    key: json["key"],
-        value: json["value"],
+  factory History.setData({required String key,required String value,}) => History(
+    key: key,
+        value: value,
       );
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      "key": key,
-      "value": value,
-    };
-  }
 }

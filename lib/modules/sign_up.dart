@@ -36,8 +36,9 @@ class _SignUpState extends State<SignUp> {
   bool accept = false;
   bool obscureText = true;
   bool isLoading = false;
-  String? select_1;
-  String? select_2;
+  String? vehicleBrand;
+  String? vehicleModel;
+  String? manufactureYear;
   TypeCharacter typeCharacter = TypeCharacter.individual;
   final _formKey = GlobalKey<FormState>();
 
@@ -62,12 +63,6 @@ class _SignUpState extends State<SignUp> {
         if (value.vehicleBrandList.isEmpty)
           return WaitScreen();
         else {
-          // value.vehicleList.forEach((element) {
-          //   print("SSSSSSSSS ${element} SSSSSSSSSSSS");
-          // });
-          // value.modelsList.forEach((element) {
-          //   print("GGGGGGGGGG ${element} GGGGGGGGGGG");
-          // });
           return SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -109,13 +104,13 @@ class _SignUpState extends State<SignUp> {
                       return null;
                     },
                     width: 50,
-                    defaultValue: select_1,
+                    defaultValue: vehicleBrand,
                     key: UniqueKey(),
                     // keyDropDown: UniqueKey(),
                     items: value.vehicleList(),
                     onChanged: (val) {
-                      select_1 = val;
-                      select_2 = null;
+                      vehicleBrand = val;
+                      vehicleModel = null;
                       value.setCurrentVehicleBrand(val);
                     },
                   ),
@@ -132,15 +127,17 @@ class _SignUpState extends State<SignUp> {
                     items: value.modelsList(),
                     key: UniqueKey(),
                     keyDropDown: UniqueKey(),
-                    defaultValue: select_2,
+                    defaultValue: vehicleModel,
                     onChanged: (val) {
                       value.setCurrentModel(val);
-                      select_2 = val;
+                      vehicleModel = val;
                     },
                   ),
                   DropdownInput(
                     labelText: "vehicle-years".tr(),
-                    onChanged: (value) {},
+                    onChanged: (value) {
+                      manufactureYear=value;
+                    },
                     key: UniqueKey(),
                     keyDropDown: UniqueKey(),
                     width: 50,
@@ -319,9 +316,9 @@ class _SignUpState extends State<SignUp> {
                               .setUser(User(
                                   name: fullNameController.text,
                                   email: emailController.text,
-                                  vehicleBrand: "vehicleBrand",
-                                  manufactureYear: "manufactureYear",
-                                  vehicleModel: "vehicleModel",
+                                  vehicleBrand: vehicleBrand,
+                              vehicleModel: vehicleModel,
+                                  manufactureYear: manufactureYear,
                                   password: passwordController.text,
                                   typeCharacter: typeCharacter));
                           Provider.of<SignUpDAO>(context, listen: false)
