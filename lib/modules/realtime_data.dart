@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vilogs/constants/constant_images.dart';
 import 'package:vilogs/constants/constant_values.dart';
@@ -66,10 +67,13 @@ class _RealtimeDataState extends State<RealtimeData> {
               ),
             ),
             Expanded(
-              child: Image.asset(ConstantImage.realtimeData,
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.fill),
+              child: Padding(
+                padding:  EdgeInsets.all(ConstantValues.padding),
+                child: SvgPicture.asset(ConstantImage.realtimeDataPage,
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.fill),
+              ),
             )
           ],
         ),

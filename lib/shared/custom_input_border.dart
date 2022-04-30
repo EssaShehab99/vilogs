@@ -5,16 +5,17 @@ import '../constants/constant_values.dart';
 import '../styles/colors_app.dart';
 
 class CustomInputBorder extends StatelessWidget {
-  CustomInputBorder({Key? key, required this.child, this.labelText})
+  CustomInputBorder({Key? key, required this.child, this.paddingTop=true, this.labelText})
       : super(key: key);
   final Widget child;
   final String? labelText;
+  final bool paddingTop;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-        top: ConstantValues.padding,
+        top:paddingTop? ConstantValues.padding:0,
         left: ConstantValues.padding,
         right: ConstantValues.padding,
       ),

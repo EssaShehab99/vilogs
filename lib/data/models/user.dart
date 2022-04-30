@@ -8,7 +8,7 @@ class User {
   String? vehicleBrand;
   String? vehicleModel;
   String? password;
-  DateTime? manufactureYear;
+  String? manufactureYear;
   TypeCharacter? typeCharacter;
 
   // DocumentReference? reference;
@@ -26,9 +26,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) => User(
       name: json["name"],
       email: json["email"],
-      manufactureYear: json["manufactureYear"] != null
-          ? (json["manufactureYear"] as Timestamp).toDate()
-          : DateTime.now(),
+      manufactureYear: json["manufactureYear"],
       vehicleModel: json["vehicleModel"],
       vehicleBrand: json["vehicleBrand"],
       typeCharacter: TypeCharacter.values

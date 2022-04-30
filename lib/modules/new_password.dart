@@ -59,7 +59,7 @@ class _NewPasswordState extends State<NewPassword> {
                   style: Theme.of(context)
                       .textTheme
                       .headline1
-                      ?.copyWith(fontSize: 40),
+                      ?.copyWith(fontSize: 30),
                 ),
               ),
             ),

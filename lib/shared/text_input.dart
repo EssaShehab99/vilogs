@@ -12,13 +12,15 @@ class TextInput extends StatelessWidget {
       required this.controller,
       this.hint,
       this.labelText,
-      this.icon,
       this.validator,
       this.keyboardType,
       this.enabled,
+      this.readOnly=false,
+      this.paddingTop,
       this.obscureText,
       this.textDirection,
       this.suffixIcon,
+      this.prefixIcon,
       this.textInputAction,
       this.textAlign = TextAlign.start,
       this.length})
@@ -26,22 +28,25 @@ class TextInput extends StatelessWidget {
   final TextEditingController controller;
   final String? hint;
   final String? labelText;
-  final IconData? icon;
   final bool? enabled;
   final FormFieldValidator<String>? validator;
   final TextInputType? keyboardType;
   final bool? obscureText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final TextInputAction? textInputAction;
   final TextDirection? textDirection;
   final int? length;
   final TextAlign textAlign;
+  final bool? paddingTop;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return CustomInputBorder(
       labelText: labelText,
-      child: TextFormField(
+       paddingTop:paddingTop??true,
+    child: TextFormField(
         textInputAction: textInputAction ?? TextInputAction.next,
         validator: validator,
         textDirection: textDirection,
@@ -49,6 +54,7 @@ class TextInput extends StatelessWidget {
         obscureText: obscureText ?? false,
         keyboardType: keyboardType,
         enabled: enabled,
+        readOnly: readOnly,
         textAlign: textAlign,
         inputFormatters: length != null
             ? [
@@ -66,14 +72,14 @@ class TextInput extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorsApp.primary, width: 2.0)),
           suffixIcon: suffixIcon,
-          contentPadding: EdgeInsets.all(10),
+          contentPadding: EdgeInsets.symmetric(horizontal: 10),
           hintText: hint,
           hintStyle: Theme.of(context)
               .textTheme
               .bodyText1
               ?.copyWith(fontStyle: FontStyle.italic, color: ColorsApp.grey),
-          prefixIcon:
-              icon == null ? null : Icon(icon, color: ColorsApp.primary),
+            prefixIcon:prefixIcon
+
         ),
       ),
     );

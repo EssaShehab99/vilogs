@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vilogs/data/network/default_data_dao.dart';
 import 'package:vilogs/data/network/sign_in_dao.dart';
 import 'package:vilogs/data/providers/history_manager.dart';
 import 'package:vilogs/modules/auth.dart';
@@ -11,6 +12,8 @@ import 'package:vilogs/styles/colors_app.dart';
 import 'package:vilogs/styles/theme_app.dart';
 
 import 'data/network/sign_up_dao.dart';
+import 'data/providers/default_data_manager.dart';
+import 'data/providers/engineer_manager.dart';
 import 'data/providers/navigation_bar_manager.dart';
 import 'data/providers/issues_manager.dart';
 import 'data/providers/user_manager.dart';
@@ -54,6 +57,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => SignInDAO()),
         ChangeNotifierProvider(create: (context) => HistoryManager()),
         ChangeNotifierProvider(create: (context) => IssuesManager()),
+        ChangeNotifierProvider(create: (context) => EngineerManager()),
+        ChangeNotifierProvider(create: (context) => DefaultDataManager()),
+        ChangeNotifierProxyProvider<DefaultDataManager,DefaultDataDAO>(
+            create: (context) => DefaultDataDAO(Provider.of<DefaultDataManager>(context, listen: false)),
+        update:(context, defaultDataManager, _) =>DefaultDataDAO(defaultDataManager) ),
       ],
       child: Builder(
         builder: (context) {
@@ -62,7 +70,7 @@ class MyApp extends StatelessWidget {
           if (user != null) userManager.setUser(user!);
           return MaterialApp(
             home: SafeArea(
-                child:  FutureBuilder<Model.User?>(
+                child:  Auth()/*FutureBuilder<Model.User?>(
                         future: Provider.of<SignInDAO>(context, listen: false)
                             .signIn(userManager.getUser?.email,
                                 userManager.getUser?.password),
@@ -82,7 +90,7 @@ class MyApp extends StatelessWidget {
                           }
 
                         },
-                      )),
+                      )*/),
             localizationsDelegates: context.localizationDelegates,
             supportedLocales: context.supportedLocales,
             locale: context.locale,

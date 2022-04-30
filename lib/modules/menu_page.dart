@@ -9,6 +9,7 @@ import 'package:vilogs/modules/realtime_data.dart';
 
 import '../data/providers/navigation_bar_manager.dart';
 import '../styles/colors_app.dart';
+import 'edit_profile.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class _MenuPageState extends State<MenuPage> {
                         onTap: () {
                           barManager.onItemTapped(2);
                         },
-                          image: ConstantImage.logo,
+                          image: ConstantImage.history,
                           text: "history".tr(),
                           margin: EdgeInsetsDirectional.only(
                               start: ConstantValues.padding,
@@ -71,7 +72,7 @@ class _MenuPageState extends State<MenuPage> {
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => RealtimeData(),));
                         },
-                          image: ConstantImage.logo,
+                          image: ConstantImage.realtimeData,
                           text: "realtime-data".tr(),
                           margin: EdgeInsetsDirectional.only(
                               end: ConstantValues.padding,
@@ -85,7 +86,7 @@ class _MenuPageState extends State<MenuPage> {
                           onTap: () {
                             barManager.onItemTapped(1);
                           },
-                          image: ConstantImage.logo,
+                          image: ConstantImage.issues,
                           text: "issues".tr(),
                           margin: EdgeInsetsDirectional.only(
                               start: ConstantValues.padding,
@@ -99,7 +100,7 @@ class _MenuPageState extends State<MenuPage> {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => AssignEngineer(),));
 
                           },
-                          image: ConstantImage.logo,
+                          image: ConstantImage.assignEngineer,
                           text: "assign-engineer".tr(),
                           margin: EdgeInsetsDirectional.only(
                               end: ConstantValues.padding,
@@ -111,8 +112,9 @@ class _MenuPageState extends State<MenuPage> {
                     children: [
                       buildCard(
                           onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => EditProfile(),));
                           },
-                          image: ConstantImage.logo,
+                          image: ConstantImage.editProfile,
                           text: "edit-profile".tr(),
                           margin: EdgeInsetsDirectional.only(
                               start: ConstantValues.padding,
@@ -155,7 +157,7 @@ class _MenuPageState extends State<MenuPage> {
               ]),
           child: Column(
             children: [
-              Flexible(flex: 2, child: SvgPicture.asset(image)),
+              Flexible(flex: 3, child: Center(child: SvgPicture.asset(image))),
               Flexible(
                   child: Text(
                 text ?? "",

@@ -6,13 +6,19 @@ import '../constants/constant_values.dart';
 import '../styles/colors_app.dart';
 import 'custom_input_border.dart';
 
-class DropdownInput extends StatefulWidget {
+class DropdownInput extends StatelessWidget {
   DropdownInput({
     Key? key,
     this.items,
     this.width,
     this.hint,
+    this.itemHeight,
+    this.prefixIcon,
+    this.readOnly = false,
+    this.paddingTop,
+    this.defaultValue,
     this.labelText,
+    this.keyDropDown,
     this.validator,
     this.onChanged,
   }) : super(key: key);
@@ -22,45 +28,49 @@ class DropdownInput extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final double? width;
   final ValueChanged<String>? onChanged;
-
-  @override
-  State<DropdownInput> createState() => _DropdownInputState();
-}
-
-class _DropdownInputState extends State<DropdownInput> {
-  final dropdownState = GlobalKey<FormFieldState>();
-  String? selectedValue;
-  List<bool> selected = [];
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final bool? paddingTop;
+  final Widget? prefixIcon;
+  final bool readOnly;
+  final double? itemHeight;
+  final String? defaultValue;
+  final Key? keyDropDown;
 
   @override
   Widget build(BuildContext context) {
+    String? selectedValue = defaultValue;
     return CustomInputBorder(
-      labelText: widget.labelText,
-      child: DropdownButtonFormField(
+      labelText: labelText,
+      paddingTop: paddingTop ?? true,
+      child: DropdownButtonFormField<String>(
+        key: keyDropDown,
         onChanged: (value) {
-          widget.onChanged!(value.toString());
+          onChanged!(value.toString());
         },
-        icon: Icon(Icons.arrow_drop_down),
+        iconSize: 0.0,
         isDense: false,
-        itemHeight: 55,
+        itemHeight: itemHeight /*?? 55*/,
+        hint: Text(hint ?? "",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(fontStyle: FontStyle.italic, color: ColorsApp.grey)),
         value: selectedValue,
-        validator: widget.validator,
-        items: widget.items
-            ?.map((value) => DropdownMenuItem<String>(
-          value: value,
-          child: Container(
-              width: widget.width,
-              child: FittedBox(
-                  fit: BoxFit.scaleDown, child: Text(value))),
-        ))
-            .toList(),
+        validator: validator,
+        items: readOnly
+            ? null
+            : items
+                ?.map((value) => DropdownMenuItem<String>(
+                      value: value,
+                      child: Container(
+                          width: width,
+                          child: FittedBox(
+                              fit: BoxFit.scaleDown, child: Text(value))),
+                    ))
+                .toList(),
         style: Theme.of(context).textTheme.bodyText1,
         decoration: InputDecoration(
+          prefixIcon: prefixIcon,
+          suffixIcon: Icon(Icons.arrow_drop_down),
           border: OutlineInputBorder(
             borderRadius:
                 BorderRadius.all(Radius.circular(ConstantValues.radius)),
@@ -69,11 +79,7 @@ class _DropdownInputState extends State<DropdownInput> {
           focusedBorder: OutlineInputBorder(
               borderSide: BorderSide(color: ColorsApp.primary, width: 2.0)),
           contentPadding: EdgeInsets.symmetric(horizontal: 10),
-          hintText: widget.hint,
-          hintStyle: Theme.of(context)
-              .textTheme
-              .bodyText1
-              ?.copyWith(fontStyle: FontStyle.italic, color: ColorsApp.grey),
+          // hintText: widget.hint,
         ),
       ),
     );
