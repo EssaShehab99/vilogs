@@ -14,6 +14,7 @@ import 'package:vilogs/shared/text_input.dart';
 import '../constants/constant_values.dart';
 import '../data/models/user.dart';
 import '../data/network/default_data_dao.dart';
+import '../data/network/sign_in_dao.dart';
 import '../data/providers/default_data_manager.dart';
 import '../data/providers/user_manager.dart';
 import '../shared/custom_button.dart';
@@ -57,7 +58,6 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Consumer<DefaultDataManager>(builder: (context, value, _) {
         if (value.vehicleBrandList.isEmpty)
@@ -73,7 +73,7 @@ class _EditProfileState extends State<EditProfile> {
                     width: double.infinity,
                     alignment: Alignment.center,
                     decoration:
-                    BoxDecoration(color: ColorsApp.white, boxShadow: [
+                        BoxDecoration(color: ColorsApp.white, boxShadow: [
                       BoxShadow(
                           color: ColorsApp.grey.withOpacity(0.5),
                           blurRadius: 4,
@@ -104,8 +104,7 @@ class _EditProfileState extends State<EditProfile> {
                                 end: ConstantValues.padding * 2),
                             child: Text(
                               "edit-profile".tr(),
-                              style: Theme
-                                  .of(context)
+                              style: Theme.of(context)
                                   .textTheme
                                   .headline1
                                   ?.copyWith(fontSize: 30),
@@ -128,59 +127,57 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                           Flexible(
                               child: CircleAvatar(
-                                radius: 69.0,
-                                backgroundColor: ColorsApp.primary,
-                                foregroundColor: ColorsApp.primary,
-                                child: Stack(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 65.0,
-                                      backgroundColor: ColorsApp.white,
-                                      child: SvgPicture.asset(
-                                          ConstantImage.editProfile),
-                                    ),
-                                    CircleAvatar(
-                                      radius: 65.0,
-                                      backgroundColor:
+                            radius: 69.0,
+                            backgroundColor: ColorsApp.primary,
+                            foregroundColor: ColorsApp.primary,
+                            child: Stack(
+                              children: [
+                                CircleAvatar(
+                                  radius: 65.0,
+                                  backgroundColor: ColorsApp.white,
+                                  child: SvgPicture.asset(
+                                      ConstantImage.editProfile),
+                                ),
+                                CircleAvatar(
+                                  radius: 65.0,
+                                  backgroundColor:
                                       ColorsApp.primary.withOpacity(0.0),
-                                      child: Align(
-                                        alignment: AlignmentDirectional
-                                            .bottomEnd,
-                                        child: InkWell(
-                                          onTap: () {},
-                                          splashColor:
+                                  child: Align(
+                                    alignment: AlignmentDirectional.bottomEnd,
+                                    child: InkWell(
+                                      onTap: () {},
+                                      splashColor:
                                           ColorsApp.white.withOpacity(0.0),
-                                          highlightColor:
+                                      highlightColor:
                                           ColorsApp.white.withOpacity(0.0),
-                                          child: CircleAvatar(
-                                            backgroundColor:
+                                      child: CircleAvatar(
+                                        backgroundColor:
                                             ColorsApp.primary.withOpacity(0.8),
-                                            radius: 20.0,
-                                            child: Icon(
-                                              Icons.edit,
-                                              size: 20.0,
-                                              color: ColorsApp.white,
-                                            ),
-                                          ),
+                                        radius: 20.0,
+                                        child: Icon(
+                                          Icons.edit,
+                                          size: 20.0,
+                                          color: ColorsApp.white,
                                         ),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              )),
+                              ],
+                            ),
+                          )),
                           Flexible(
                               child: Text(
-                                "profile-photo".tr(),
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headline1
-                                    ?.copyWith(fontSize: 20),
-                              )),
+                            "profile-photo".tr(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline1
+                                ?.copyWith(fontSize: 20),
+                          )),
                           TextInput(
                             labelText: "full-name".tr(),
-                            controller: fullNameController ??
-                                TextEditingController(),
+                            controller:
+                                fullNameController ?? TextEditingController(),
                             hint: userManager.getUser?.name,
                             readOnly: readOnlyName,
                             prefixIcon: buildEnableButton(
@@ -210,8 +207,7 @@ class _EditProfileState extends State<EditProfile> {
                             keyboardType: TextInputType.emailAddress,
                             hint: userManager.getUser?.email,
                             readOnly: true,
-                            prefixIcon: buildEnableButton(
-                                readOnly: true),
+                            prefixIcon: buildEnableButton(readOnly: true),
                           ),
                           DropdownInput(
                             labelText: "vehicle-brand".tr(),
@@ -307,58 +303,74 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                           Flexible(
                               child: Container(
-                                alignment: Alignment.bottomCenter,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: ConstantValues.padding),
-                                child: StatefulBuilder(
-                                  builder: (context, setState) =>
-                                      CustomButton(
-                                        isLoading: isLoading,
-                                        text: "save".tr(),
-                                        onTap: () {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            setState(() {
-                                              isLoading = true;
-                                            });
-                                            Provider.of<SignUpDAO>(
-                                                context, listen: false)
-                                                .updateUser(User(
-                                                email: userManager.getUser?.email,
-                                                name: fullNameController?.text??userManager.getUser?.email,
-                                                password: userManager.getUser?.password,
-                                                typeCharacter: userManager.getUser?.typeCharacter,
-                                                vehicleBrand:vehicleBrand??userManager.getUser?.vehicleBrand,
-                                                vehicleModel:vehicleModel??userManager.getUser?.vehicleModel,
-                                                manufactureYear:manufactureYear??userManager.getUser?.manufactureYear,
-                                                    )).whenComplete((){
-                                              setState(() {
-                                                isLoading = false;
-                                                Navigator.pop(context);
-                                              });
-                                            });
-                                          }
-                                        },
-                                      ),
-                                ),
-                              )),
+                            alignment: Alignment.bottomCenter,
+                            margin: EdgeInsets.symmetric(
+                                vertical: ConstantValues.padding),
+                            child: StatefulBuilder(
+                              builder: (context, setState) => CustomButton(
+                                isLoading: isLoading,
+                                text: "save".tr(),
+                                onTap: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    Provider.of<SignUpDAO>(context,
+                                            listen: false)
+                                        .updateUser(User(
+                                      email: userManager.getUser?.email,
+                                      name: fullNameController?.text ??
+                                          userManager.getUser?.email,
+                                      password: userManager.getUser?.password,
+                                      typeCharacter:
+                                          userManager.getUser?.typeCharacter,
+                                      vehicleBrand: vehicleBrand ??
+                                          userManager.getUser?.vehicleBrand,
+                                      vehicleModel: vehicleModel ??
+                                          userManager.getUser?.vehicleModel,
+                                      manufactureYear: manufactureYear ??
+                                          userManager.getUser?.manufactureYear,
+                                    ))
+                                        .whenComplete(() {
+                                        Provider.of<SignInDAO>(context,
+                                                listen: false)
+                                            .signIn(userManager.getUser?.email,
+                                                userManager.getUser?.password)
+                                            .then((value) {
+                                              if(value!=null)
+                                              userManager.setUser(value);
+                                          setState((){
+                                            isLoading = false;
+                                            Navigator.pop(context);
+                                          });
+                                        });
+
+                                    });
+                                  }
+                                },
+                              ),
+                            ),
+                          )),
                           Flexible(
                               child: Container(
-                                alignment: Alignment.bottomCenter,
-                                margin: EdgeInsets.symmetric(
-                                    vertical: ConstantValues.padding),
-                                child: StatefulBuilder(
-                                  builder: (context, setState) =>
-                                      CustomButton(
-                                        isLoading: isLoading,
-                                        text: "logout".tr(),
-                                        onTap: () {
-                                          Config.clearUser();
-                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp(user: null),));
-                                        },
-                                      ),
-                                ),
-                              )),
+                            alignment: Alignment.bottomCenter,
+                            margin: EdgeInsets.symmetric(
+                                vertical: ConstantValues.padding),
+                            child: StatefulBuilder(
+                              builder: (context, setState) => CustomButton(
+                                isLoading: isLoading,
+                                text: "logout".tr(),
+                                onTap: () {
+                                  Config.clearUser();
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => MyApp(user: null),
+                                      ));
+                                },
+                              ),
+                            ),
+                          )),
                         ],
                       ),
                     ),

@@ -86,6 +86,9 @@ class Verification extends StatelessWidget {
                         contentPadding: EdgeInsets.all(10),
                       ),
                       showFieldAsBox: true,
+                          onSubmit:  (String code) {
+                            verificationCode=code;
+                          },
                       onCodeChanged: (String code) {
                         if (verificationCode != null)
                           verificationCode = verificationCode! + code;

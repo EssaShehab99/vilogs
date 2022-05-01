@@ -69,6 +69,7 @@ class DropdownInput extends StatelessWidget {
                       child: Container(
                           width: width,
                           child: FittedBox(
+                            alignment: AlignmentDirectional.centerStart,
                               fit: BoxFit.scaleDown, child: Text(value))),
                     ))
                 .toList(),

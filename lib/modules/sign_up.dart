@@ -100,7 +100,7 @@ class _SignUpState extends State<SignUp> {
                       }
                       return null;
                     },
-                    width: 50,
+                    width: 80,
                     defaultValue: vehicleBrand,
                     key: UniqueKey(),
                     // keyDropDown: UniqueKey(),
@@ -108,6 +108,7 @@ class _SignUpState extends State<SignUp> {
                     onChanged: (val) {
                       vehicleBrand = val;
                       vehicleModel = null;
+                      manufactureYear=null;
                       value.setCurrentVehicleBrand(val);
                     },
                   ),
@@ -120,12 +121,13 @@ class _SignUpState extends State<SignUp> {
                       }
                       return null;
                     },
-                    width: 50,
+                    width: 80,
                     items: value.modelsList(),
                     key: UniqueKey(),
                     keyDropDown: UniqueKey(),
                     defaultValue: vehicleModel,
                     onChanged: (val) {
+                      manufactureYear=null;
                       value.setCurrentModel(val);
                       vehicleModel = val;
                     },
@@ -137,7 +139,8 @@ class _SignUpState extends State<SignUp> {
                     },
                     key: UniqueKey(),
                     keyDropDown: UniqueKey(),
-                    width: 50,
+                    width: 80,
+                    defaultValue: manufactureYear,
                     items: value.yearsList(),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
