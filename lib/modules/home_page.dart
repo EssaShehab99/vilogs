@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         Provider
             .of<HistoryManager>(context, listen: false);
     Provider.of<DefaultDataDAO>(context, listen: false)
-        .getHomeData().then((value) {
+        .getHistoryData().then((value) {
       historyManager.setHistory(value);
     });
     return Consumer<HistoryManager>(

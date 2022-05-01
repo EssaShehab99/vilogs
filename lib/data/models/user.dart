@@ -29,6 +29,7 @@ class User {
       manufactureYear: json["manufactureYear"],
       vehicleModel: json["vehicleModel"],
       vehicleBrand: json["vehicleBrand"],
+      password: json["password"],
       typeCharacter: TypeCharacter.values
           .firstWhere((element) => element.name == json["typeCharacter"]));
 

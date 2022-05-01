@@ -10,6 +10,7 @@ import 'package:vilogs/shared/custom_button.dart';
 import 'package:vilogs/shared/dropdown_input.dart';
 import 'package:vilogs/shared/text_input.dart';
 
+import '../data/network/default_data_dao.dart';
 import '../styles/colors_app.dart';
 
 class AssignEngineer extends StatefulWidget {
@@ -21,9 +22,14 @@ class AssignEngineer extends StatefulWidget {
 
 class _AssignEngineerState extends State<AssignEngineer> {
   final idController = TextEditingController();
-
+ late EngineerManager engineerManager;
   @override
   Widget build(BuildContext context) {
+    engineerManager=Provider.of<EngineerManager>(context, listen: false);
+    Provider.of<DefaultDataDAO>(context, listen: false)
+        .getEngineerData().then((value) {
+      engineerManager.setEngineers(value);
+    });
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -158,6 +164,7 @@ class _AssignEngineerState extends State<AssignEngineer> {
                                   height: 100,
                                   child: DropdownInput(
                                     paddingTop: false,
+                                    isDense: true,
                                     labelText: "choose-duration".tr(),
                                     hint: "duration".tr(),
                                     items: [
@@ -291,8 +298,7 @@ class _AssignEngineerState extends State<AssignEngineer> {
               alignment: AlignmentDirectional.topEnd,
               child: InkWell(
                 onTap: () {
-                  Provider.of<EngineerManager>(context, listen: false)
-                      .deleteEngineer(engineer.id!);
+                  engineerManager.deleteEngineer(engineer.id!);
                 },
                 child: Container(
                   height: 40,

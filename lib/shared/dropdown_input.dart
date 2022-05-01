@@ -15,6 +15,7 @@ class DropdownInput extends StatelessWidget {
     this.itemHeight,
     this.prefixIcon,
     this.readOnly = false,
+    this.isDense = false,
     this.paddingTop,
     this.defaultValue,
     this.labelText,
@@ -34,6 +35,7 @@ class DropdownInput extends StatelessWidget {
   final double? itemHeight;
   final String? defaultValue;
   final Key? keyDropDown;
+  final bool isDense;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +49,16 @@ class DropdownInput extends StatelessWidget {
           onChanged!(value.toString());
         },
         iconSize: 0.0,
-        isDense: false,
+        isDense: isDense,
         itemHeight: itemHeight /*?? 55*/,
-        hint: Text(hint ?? "",
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
-                ?.copyWith(fontStyle: FontStyle.italic, color: ColorsApp.grey)),
+        hint: Padding(
+          padding:  EdgeInsetsDirectional.only(start: 8.0),
+          child: Text(hint ?? "",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyText1
+                  ?.copyWith(fontStyle: FontStyle.italic, color: ColorsApp.grey)),
+        ),
         value: selectedValue,
         validator: validator,
         items: readOnly

@@ -7,6 +7,8 @@ import 'package:vilogs/data/models/default_data.dart';
 import 'package:vilogs/data/models/history.dart';
 import 'package:vilogs/data/providers/default_data_manager.dart';
 import 'package:vilogs/styles/colors_app.dart';
+import '../models/enginner.dart';
+import '../models/issues.dart';
 import '/data/models/user.dart' as UserModel;
 
 class DefaultDataDAO extends ChangeNotifier {
@@ -17,8 +19,12 @@ class DefaultDataDAO extends ChangeNotifier {
   final CollectionReference collectionVehicleBrand =
       FirebaseFirestore.instance.collection('vehicleBrand');
 
-  final CollectionReference collectionHome =
+  final CollectionReference collectionHistory =
       FirebaseFirestore.instance.collection('home');
+  final CollectionReference collectionIssues =
+      FirebaseFirestore.instance.collection('issues');
+  final CollectionReference collectionEngineer =
+  FirebaseFirestore.instance.collection('engineer');
 
   Future<QuerySnapshot<Object?>> getVehicleBrand() async {
     return await collectionVehicleBrand.get();
@@ -47,17 +53,42 @@ class DefaultDataDAO extends ChangeNotifier {
     // return vehicleBrand;
   }
 
-  Future<List<History>> getHomeData() async {
+  Future<List<History>> getHistoryData() async {
     List<History> historyList = [];
-    QuerySnapshot<Object?> snapshot=await collectionHome.get();
+    QuerySnapshot<Object?> snapshot=await collectionHistory.get();
     for(var item in snapshot.docs){
-      // var x=(item.data() as Map<String, dynamic>);
       (item.data() as Map<String, dynamic>).keys.forEach((element) {
         historyList.add(History.setData(key: element,value:(item.data() as Map<String, dynamic>)[element] ));
       });
-      // print((item.data() as Map<String, dynamic>).keys.first.toString()+" ggggggggggggggggggggggggggggggggggggg");
-      // historyList.add(History.fromJson(item.data() as Map<String, dynamic>));
     }
     return historyList;
+  }
+  Future<List<Issues>> getIssuesData() async {
+    List<Issues> issuesList = [];
+    QuerySnapshot<Object?> snapshot=await collectionIssues.get();
+    for(var item in snapshot.docs){
+      if((item.data() as Map<String, dynamic>)["isInProgress"]==true)
+      for(var element in (item.data() as Map<String, dynamic>).keys) {
+        if(element=="isInProgress")
+          continue;
+        issuesList.add(Issues.setData(key: element,value:(item.data() as Map<String, dynamic>)[element].toString(),isInProgress: true));
+      }
+      if((item.data() as Map<String, dynamic>)["isInProgress"]==false)
+        for(var element in (item.data() as Map<String, dynamic>).keys) {
+          if(element=="isInProgress")
+            continue;
+          issuesList.add(Issues.setData(key: element,value:(item.data() as Map<String, dynamic>)[element].toString(),isInProgress: false));
+        }
+    }
+    return issuesList;
+  }
+
+  Future<List<Engineer>> getEngineerData() async {
+    List<Engineer> engineerList = [];
+    QuerySnapshot<Object?> snapshot=await collectionEngineer.get();
+    for(var item in snapshot.docs){
+      engineerList.add(Engineer.fromJson(json: item.data() as Map<String, dynamic>,docID: item.id));
+    }
+    return engineerList;
   }
 }

@@ -9,6 +9,7 @@ import 'package:vilogs/data/providers/history_manager.dart';
 import 'package:vilogs/shared/custom_tabs.dart';
 
 import '../data/models/issues.dart';
+import '../data/network/default_data_dao.dart';
 import '../data/providers/issues_manager.dart';
 import '../styles/colors_app.dart';
 
@@ -24,23 +25,29 @@ class _IssuesPageState extends State<IssuesPage> {
   Widget build(BuildContext context) {
     IssuesManager issuesManager =
         Provider.of<IssuesManager>(context, listen: false);
-    return CustomTabs(
-      headerTitle:  "issues".tr(),
-      firstTabTitle: "past".tr(),
-      secondTabTitle: "in-progress".tr(),
-      firstTabChild: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          for (Issues item in issuesManager.getPast())
-            buildCard(issuesManager.getPast(), item, context)
-        ],
-      ),
-      secondTabChild: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          for (Issues item in issuesManager.getIsInProgress())
-            buildCard(issuesManager.getIsInProgress(), item, context)
-        ],
+    Provider.of<DefaultDataDAO>(context, listen: false)
+        .getIssuesData().then((value) {
+      issuesManager.setIssuesList(value);
+    });
+    return Consumer<IssuesManager>(
+      builder: (context, value, child) => CustomTabs(
+        headerTitle:  "issues".tr(),
+        firstTabTitle: "past".tr(),
+        secondTabTitle: "in-progress".tr(),
+        firstTabChild: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (Issues item in issuesManager.getPast())
+              buildCard(issuesManager.getPast(), item, context)
+          ],
+        ),
+        secondTabChild: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            for (Issues item in issuesManager.getIsInProgress())
+              buildCard(issuesManager.getIsInProgress(), item, context)
+          ],
+        ),
       ),
     );
   }

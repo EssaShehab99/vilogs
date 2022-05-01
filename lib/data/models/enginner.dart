@@ -1,5 +1,6 @@
 class Engineer {
   String? id;
+  String? docID;
   String name;
   bool availability;
   int rate;
@@ -7,13 +8,15 @@ class Engineer {
 
   Engineer({
     this.id,
+    this.docID,
     required this.name,
     required this.availability,
     required this.rate,
     required this.isCurrent,
   });
 
-  factory Engineer.fromJson(Map<String, dynamic> json) => Engineer(
+  factory Engineer.fromJson({required Map<String, dynamic> json, required String docID}) => Engineer(
+    docID: docID,
         id: json["id"],
         name: json["name"],
         availability: json["availability"],

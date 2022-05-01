@@ -49,10 +49,7 @@ class _SignUpState extends State<SignUp> {
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
     Provider.of<DefaultDataDAO>(context, listen: false)
-        .getData()
-        .whenComplete(() {
-      // Provider.of<DefaultDataManager>(context, listen: false).setVehicleList();
-    });
+        .getData();
     super.initState();
   }
 

@@ -26,7 +26,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp();
-  Config.clearUser();
   runApp(EasyLocalization(
       supportedLocales: const [Locale('en', 'US'), Locale('ar', 'SA')],
       path: 'assets/translations',
@@ -68,9 +67,11 @@ class MyApp extends StatelessWidget {
           UserManager userManager =
               Provider.of<UserManager>(context, listen: false);
           if (user != null) userManager.setUser(user!);
+          print("yyyyyyyyyyyyyyyyy ${userManager.getUser?.email} yyyyyyyyyyyyyyyyyyyy");
+
           return MaterialApp(
             home: SafeArea(
-                child:  /*Auth()*/FutureBuilder<Model.User?>(
+                child: FutureBuilder<Model.User?>(
                         future: Provider.of<SignInDAO>(context, listen: false)
                             .signIn(userManager.getUser?.email,
                                 userManager.getUser?.password),
@@ -79,13 +80,13 @@ class MyApp extends StatelessWidget {
                           switch (snapshot.connectionState) {
                             case ConnectionState.none:
                             case ConnectionState.waiting:
-                            return WaitScreen();
+                            return Scaffold(body: WaitScreen());
                             default:
                               if (snapshot.hasData && snapshot.data!=null) {
                                 userManager.setUser(snapshot.data!);
                                 return MainPage();
                               } else {
-                                return MainPage();
+                                return Auth();
                               }
                           }
 

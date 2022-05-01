@@ -22,8 +22,7 @@ class TextInput extends StatelessWidget {
       this.suffixIcon,
       this.prefixIcon,
       this.textInputAction,
-      this.textAlign = TextAlign.start,
-      this.length})
+      this.textAlign = TextAlign.start})
       : super(key: key);
   final TextEditingController controller;
   final String? hint;
@@ -36,7 +35,6 @@ class TextInput extends StatelessWidget {
   final Widget? prefixIcon;
   final TextInputAction? textInputAction;
   final TextDirection? textDirection;
-  final int? length;
   final TextAlign textAlign;
   final bool? paddingTop;
   final bool readOnly;
@@ -56,12 +54,6 @@ class TextInput extends StatelessWidget {
         enabled: enabled,
         readOnly: readOnly,
         textAlign: textAlign,
-        inputFormatters: length != null
-            ? [
-                LengthLimitingTextInputFormatter(length!),
-                FilteringTextInputFormatter.digitsOnly
-              ]
-            : [],
         style: Theme.of(context).textTheme.bodyText1,
         decoration: InputDecoration(
           border: OutlineInputBorder(

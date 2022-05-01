@@ -109,4 +109,9 @@ class SignUpDAO extends ChangeNotifier {
 
     Future.value();
   }
+
+  Future<void> updateUser(UserModel.User user) async {
+    await collection.doc(user.email).update(user.toJson());
+    return Future.value();
+  }
 }

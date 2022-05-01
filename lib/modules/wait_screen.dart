@@ -14,18 +14,21 @@ class WaitScreen extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(ConstantValues.padding),
       alignment: Alignment.center,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset(ConstantImage.logo),
-          SizedBox(height: 100,),
-          CircularProgressIndicator(
-            color: ColorsApp.primary,
-          ),
-          SizedBox(height: 100,),
-          Text("please-wait".tr(),style: Theme.of(context).textTheme.headline1,textAlign: TextAlign.center,)
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(ConstantImage.logo),
+            SizedBox(height: 100,),
+            CircularProgressIndicator(
+              color: ColorsApp.primary,
+            ),
+            SizedBox(height: 100,),
+            Text("please-wait".tr(),style: Theme.of(context).textTheme.headline1,textAlign: TextAlign.center,)
+          ],
+        ),
       ),
     );
   }
