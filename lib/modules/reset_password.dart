@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' as services;
 import 'package:provider/provider.dart';
 import 'package:vilogs/constants/constant_values.dart';
 import 'package:vilogs/data/models/user.dart';
@@ -18,11 +19,13 @@ import '../data/providers/user_manager.dart';
 import '../styles/colors_app.dart';
 
 class ResetPassword extends StatelessWidget {
-  const ResetPassword({Key? key}) : super(key: key);
+   ResetPassword({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    services.SystemChannels.textInput.invokeMethod('TextInput.hide');
+
     bool? isLoading = false;
     final emailController = TextEditingController();
     List<TextEditingController> controllers =
