@@ -21,6 +21,7 @@ class TextInput extends StatelessWidget {
       this.textDirection,
       this.suffixIcon,
       this.prefixIcon,
+       this.keyForm,
       this.textInputAction,
       this.textAlign = TextAlign.start})
       : super(key: key);
@@ -38,6 +39,7 @@ class TextInput extends StatelessWidget {
   final TextAlign textAlign;
   final bool? paddingTop;
   final bool readOnly;
+  final Key? keyForm;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +47,7 @@ class TextInput extends StatelessWidget {
       labelText: labelText,
        paddingTop:paddingTop??true,
     child: TextFormField(
+      key: keyForm,
         textInputAction: textInputAction ?? TextInputAction.next,
         validator: validator,
         textDirection: textDirection,

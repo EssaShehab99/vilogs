@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 enum TypeCharacter { individual, engineer }
-
+//User user=new User("Ahmed", "Ahmed@gmail.com",,,...);
+//user.toMap();
 class User {
   String? name;
   String? email;

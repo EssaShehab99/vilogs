@@ -10,12 +10,14 @@ class CustomButton extends StatelessWidget {
       required this.text,
       this.onTap,
       this.enable = true,
+      this.keyButton,
       this.isLoading = false})
       : super(key: key);
   final String text;
   final GestureTapCallback? onTap;
   final bool enable;
   final bool isLoading;
+  final Key? keyButton;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class CustomButton extends StatelessWidget {
           color: enable ? ColorsApp.primary : ColorsApp.grey,
           borderRadius: BorderRadius.circular(ConstantValues.radius)),
       child: InkWell(
+        key: keyButton,
         onTap: enable ? (isLoading ? null : onTap) : null,
         child: Container(
           width: double.infinity,

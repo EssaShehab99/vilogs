@@ -67,6 +67,7 @@ class _SignUpState extends State<SignUp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextInput(
+                    keyForm: Key("name"),
                     labelText: "full-name".tr(),
                     controller: fullNameController,
                     hint: "enter-full-name".tr(),
@@ -78,6 +79,7 @@ class _SignUpState extends State<SignUp> {
                     },
                   ),
                   TextInput(
+                    keyForm: Key("email"),
                     labelText: "email".tr(),
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -151,6 +153,7 @@ class _SignUpState extends State<SignUp> {
                     hint: "select-vehicle-model".tr(),
                   ),
                   TextInput(
+                    keyForm: Key("password"),
                     labelText: "password".tr(),
                     controller: passwordController,
                     obscureText: obscureText,
@@ -173,6 +176,7 @@ class _SignUpState extends State<SignUp> {
                     hint: "enter-password".tr(),
                   ),
                   TextInput(
+                    keyForm: Key("confirm-password"),
                     labelText: "confirm-password".tr(),
                     validator: (value) {
                       if (value == null ||

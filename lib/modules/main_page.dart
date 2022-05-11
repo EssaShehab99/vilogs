@@ -5,12 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:vilogs/constants/constant_images.dart';
 import 'package:vilogs/constants/constant_values.dart';
 import 'package:vilogs/data/providers/navigation_bar_manager.dart';
-import 'package:vilogs/modules/menu_page.dart';
-import 'package:vilogs/modules/realtime_data.dart';
 
 import '../styles/colors_app.dart';
-import 'history_page.dart';
-import 'issues_page.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);

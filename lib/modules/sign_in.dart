@@ -54,6 +54,7 @@ class _SignInState extends State<SignIn> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextInput(
+                keyForm: Key("email_login"),
                 labelText: "email".tr(),
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
@@ -68,6 +69,7 @@ class _SignInState extends State<SignIn> {
                 },
               ),
               TextInput(
+                keyForm: Key("password_login"),
                 labelText: "password".tr(),
                 controller: passwordController,
                 keyboardType: TextInputType.visiblePassword,
@@ -166,6 +168,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                     CustomButton(
+                      key: Key("login_btn"),
                       isLoading: isLoading ?? false,
                       text: "sign-in".tr(),
                       onTap: () {
