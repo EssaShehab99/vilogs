@@ -292,8 +292,6 @@ class _EditProfileState extends State<EditProfile> {
                             prefixIcon: buildEnableButton(
                                 onTap: () {
                                   value.currentModel?.years.forEach((element) {
-                                    print(
-                                        "ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
                                   });
                                   setState(() {
                                     readOnlyYear = !readOnlyYear;
@@ -356,19 +354,16 @@ class _EditProfileState extends State<EditProfile> {
                             alignment: Alignment.bottomCenter,
                             margin: EdgeInsets.symmetric(
                                 vertical: ConstantValues.padding),
-                            child: StatefulBuilder(
-                              builder: (context, setState) => CustomButton(
-                                isLoading: isLoading,
-                                text: "logout".tr(),
-                                onTap: () {
-                                  Config.clearUser();
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MyApp(user: null),
-                                      ));
-                                },
-                              ),
+                            child: CustomButton(
+                              text: "logout".tr(),
+                              onTap: () {
+                                Config.clearUser();
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MyApp(user: null),
+                                    ));
+                              },
                             ),
                           )),
                         ],
