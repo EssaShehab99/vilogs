@@ -22,24 +22,29 @@ class MainPage extends StatelessWidget {
             borderRadius: BorderRadius.vertical(
                 top: Radius.circular(ConstantValues.radius * 4)),
             child: BottomNavigationBar(
+              key: Key('bottom'),
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
                   ),
                   label: 'home'.tr(),
+tooltip: 'home'
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.settings),
                   label: 'issues'.tr(),
+                    tooltip: 'issues'
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.history),
                   label: 'history'.tr(),
+                    tooltip: 'history'
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(Icons.view_list_sharp),
                   label: 'menu'.tr(),
+                    tooltip: 'menu'
                 ),
               ],
               type: BottomNavigationBarType.fixed,

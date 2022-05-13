@@ -18,7 +18,14 @@ void main() {
     await tester.tap(
         find.byKey(Key("login_btn")));
     await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('home'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('issues'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('history'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('menu'));
 
-    await tester.pump(Duration(seconds: 3));
+    await tester.pump(Duration(seconds: 10));
   });
 }
